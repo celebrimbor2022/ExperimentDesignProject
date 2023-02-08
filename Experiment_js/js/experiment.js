@@ -16,6 +16,7 @@ var ctx = {
   startBlock: 0,
   startTrial: 0,
   cpt: 0,
+  errorCount: 0,
 
   participantIndex: touchstone == 1 ? "Participant" : "ParticipantID",
   practiceIndex: "Practice",
@@ -140,7 +141,10 @@ var startExperiment = function (event) {
 };
 
 var nextTrial = function () {
+  // SHOULD I CHECK IT HERE?
+
   ctx.cpt++;
+  ctx.errorCount = 0;
   displayInstructions();
 };
 
@@ -391,7 +395,6 @@ var displayPlaceholders = function () {
     .append("g")
     .attr("id", "placeholders")
     .attr("transform", "translate(100,100)");
-
   var gridCoords = gridCoordinates(objectCount, 60);
   for (var i = 0; i < objectCount; i++) {
     var placeholder = group
@@ -400,11 +403,39 @@ var displayPlaceholders = function () {
       .attr("y", gridCoords[i].y - 28)
       .attr("width", 56)
       .attr("height", 56)
-      .attr("fill", "Gray");
+      .attr("fill", "Gray")
+      .attr("index", i);
 
     placeholder.on("click", function () {
-      d3.select("#placeholders").remove();
-      nextTrial();
+      //if correct push a new log, otherwise reset the timer and reset the experiment
+      if (ctx.targetIndex == this.getAttribute("index")) {
+        console.log("Correct!");
+        ctx.loggedTrials.push([
+          "Preattention-experiment",
+          ctx.trials[ctx.cpt]["PartecipantID"],
+          "WHAT?",
+          ctx.trials[ctx.cpt]["Block1"],
+          ctx.trials[ctx.cpt]["TrialID"],
+          ctx.trials[ctx.cpt]["VV"],
+          ctx.trials[ctx.cpt]["OC"],
+          Date.now(),
+          ctx.errorCount,
+        ]);
+        d3.select("#placeholders").remove();
+        nextTrial();
+      } else {
+        console.log("Wrong!");
+        console.log(ctx.trials[ctx.cpt]);
+        console.log(
+          "Index was " +
+            ctx.targetIndex +
+            " and you clicked " +
+            this.getAttribute("index")
+        );
+        ctx.errorCount++;
+        d3.select("#placeholders").remove();
+        displayShapes();
+      }
     });
   }
 };
