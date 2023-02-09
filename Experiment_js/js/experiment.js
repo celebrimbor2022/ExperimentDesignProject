@@ -454,7 +454,7 @@ var displayPlaceholders = function () {
         );
         ctx.errorCount++;
         d3.select("#placeholders").remove();
-        displayShapes();
+        displayInstructions();
       }
     });
   }
