@@ -5,6 +5,7 @@ var state = {
   INSTRUCTIONS: 1,
   SHAPES: 2,
   PLACEHOLDERS: 3,
+  FINISH: 4,
 };
 
 var ctx = {
@@ -141,8 +142,6 @@ var startExperiment = function (event) {
 };
 
 var nextTrial = function () {
-  // SHOULD I CHECK IT HERE?
-
   ctx.cpt++;
   ctx.errorCount = 0;
   displayInstructions();
@@ -188,6 +187,7 @@ var displayShapes = function () {
     objectCount = 49;
   }
   console.log("display shapes for condition " + oc + "," + visualVariable);
+  console.log("Trial N°: " + ctx.trials[ctx.cpt]["TrialID"]);
 
   var svgElement = d3.select("svg");
   var group = svgElement
@@ -376,6 +376,17 @@ var displayShapes = function () {
   }
 };
 
+var displayFinish = function () {
+  ctx.state = state.FINISH;
+
+  d3.select("#instructionsCanvas")
+    .append("div")
+    .attr("id", "instructions")
+    .classed("instr", true);
+
+  d3.select("#instructions").append("p").html("Thank you!");
+};
+
 var displayPlaceholders = function () {
   ctx.state = state.PLACEHOLDERS;
 
@@ -410,19 +421,28 @@ var displayPlaceholders = function () {
       //if correct push a new log, otherwise reset the timer and reset the experiment
       if (ctx.targetIndex == this.getAttribute("index")) {
         console.log("Correct!");
+
         ctx.loggedTrials.push([
           "Preattention-experiment",
-          ctx.trials[ctx.cpt]["PartecipantID"],
-          "WHAT?",
-          ctx.trials[ctx.cpt]["Block1"],
+          ctx.trials[ctx.cpt]["ParticipantID"],
           ctx.trials[ctx.cpt]["TrialID"],
+          ctx.trials[ctx.cpt]["Block1"],
+          ctx.trials[ctx.cpt]["Block2"],
           ctx.trials[ctx.cpt]["VV"],
           ctx.trials[ctx.cpt]["OC"],
           Date.now(),
           ctx.errorCount,
         ]);
         d3.select("#placeholders").remove();
-        nextTrial();
+        if (
+          ctx.trials[ctx.cpt]["TrialID"] /
+            ctx.trials[ctx.cpt]["ParticipantID"] ==
+          45
+        ) {
+          displayFinish();
+        } else {
+          nextTrial();
+        }
       } else {
         console.log("Wrong!");
         console.log(ctx.trials[ctx.cpt]);
