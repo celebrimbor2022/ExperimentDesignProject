@@ -206,9 +206,9 @@ var displayShapes = function () {
     targetOrientation = 0; // target is not rotated
   }
   if (randomNumber2 > 0.5) {
-    targetColor = "DarkGray"; // target is dark gray
+    targetColor = "Red"; // target is dark gray
   } else {
-    targetColor = "LightGray"; // target is light gray
+    targetColor = "Blue"; // target is light gray
   }
   console.log(
     "Target color: " +
@@ -234,85 +234,85 @@ var displayShapes = function () {
           color: targetColor,
         });
       }
-      if (visualVariable == "Color" && targetColor == "LightGray") {
+      if (visualVariable == "Color" && targetColor == "Blue") {
         objectsAppearance.push({
           orientation: targetOrientation,
           size: 25,
-          color: "DarkGray",
+          color: "Red",
         });
-      } else if (visualVariable == "Color" && targetColor == "DarkGray") {
+      } else if (visualVariable == "Color" && targetColor == "Red") {
         objectsAppearance.push({
           orientation: targetOrientation,
           size: 25,
-          color: "LightGray",
+          color: "Blue",
         });
       }
     }
   } else {
-    if (targetColor == "DarkGray" && targetOrientation == 0) {
+    if (targetColor == "Red" && targetOrientation == 0) {
       for (var i = 0; i < objectCount / 3; i++) {
         objectsAppearance.push({
           orientation: targetOrientation,
           size: 25,
-          color: "LightGrey",
+          color: "Blue",
         });
       }
       for (var i = 0; i < objectCount / 3; i++) {
         objectsAppearance.push({
           orientation: 45,
           size: 25,
-          color: "DarkGrey",
+          color: "Red",
         });
       }
       for (var i = 0; i < objectCount / 3 + (objectCount % 3); i++) {
         objectsAppearance.push({
           orientation: 45,
           size: 25,
-          color: "LightGrey",
+          color: "Blue",
         });
       }
-    } else if (targetColor == "DarkGray" && targetOrientation == 45) {
+    } else if (targetColor == "Red" && targetOrientation == 45) {
       for (var i = 0; i < objectCount / 3; i++) {
         objectsAppearance.push({
           orientation: targetOrientation,
           size: 25,
-          color: "LightGrey",
+          color: "Blue",
         });
       }
       for (var i = 0; i < objectCount / 3; i++) {
         objectsAppearance.push({
           orientation: 0,
           size: 25,
-          color: "DarkGrey",
+          color: "Red",
         });
       }
       for (var i = 0; i < objectCount / 3 + (objectCount % 3); i++) {
         objectsAppearance.push({
           orientation: 0,
           size: 25,
-          color: "LightGrey",
+          color: "Blue",
         });
       }
-    } else if (targetColor == "LightGray" && targetOrientation == 45) {
+    } else if (targetColor == "Blue" && targetOrientation == 45) {
       for (var i = 0; i < objectCount / 3; i++) {
         objectsAppearance.push({
           orientation: targetOrientation,
           size: 25,
-          color: "DarkGrey",
+          color: "Red",
         });
       }
       for (var i = 0; i < objectCount / 3; i++) {
         objectsAppearance.push({
           orientation: 0,
           size: 25,
-          color: "LightGrey",
+          color: "Blue",
         });
       }
       for (var i = 0; i < objectCount / 3 + (objectCount % 3); i++) {
         objectsAppearance.push({
           orientation: 0,
           size: 25,
-          color: "DarkGrey",
+          color: "Red",
         });
       }
     } else {
@@ -320,21 +320,21 @@ var displayShapes = function () {
         objectsAppearance.push({
           orientation: targetOrientation,
           size: 25,
-          color: "DarkGrey",
+          color: "Red",
         });
       }
       for (var i = 0; i < objectCount / 3; i++) {
         objectsAppearance.push({
           orientation: 45,
           size: 25,
-          color: "LightGrey",
+          color: "Blue",
         });
       }
       for (var i = 0; i < objectCount / 3 + (objectCount % 3); i++) {
         objectsAppearance.push({
           orientation: 45,
           size: 25,
-          color: "DarkGrey",
+          color: "Red",
         });
       }
     }
