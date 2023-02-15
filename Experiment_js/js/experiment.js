@@ -18,6 +18,8 @@ var ctx = {
   startTrial: 0,
   cpt: 0,
   errorCount: 0,
+  duration: 0,
+  startTime: 0,
 
   participantIndex: touchstone == 1 ? "Participant" : "ParticipantID",
   practiceIndex: "Practice",
@@ -176,6 +178,9 @@ var displayInstructions = function () {
 
 var displayShapes = function () {
   ctx.state = state.SHAPES;
+
+  ctx.duration = 0;
+  ctx.startTime = Date.now();
 
   var visualVariable = ctx.trials[ctx.cpt]["VV"];
   var oc = ctx.trials[ctx.cpt]["OC"];
@@ -390,6 +395,8 @@ var displayFinish = function () {
 var displayPlaceholders = function () {
   ctx.state = state.PLACEHOLDERS;
 
+  ctx.duration = Date.now() - ctx.startTime;
+
   var oc = ctx.trials[ctx.cpt]["OC"];
   var objectCount = 0;
 
@@ -430,7 +437,7 @@ var displayPlaceholders = function () {
           ctx.trials[ctx.cpt]["Block2"],
           ctx.trials[ctx.cpt]["VV"],
           ctx.trials[ctx.cpt]["OC"],
-          Date.now(),
+          ctx.duration,
           ctx.errorCount,
         ]);
         d3.select("#placeholders").remove();
